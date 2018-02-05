@@ -37,8 +37,25 @@ print(now_time())
 - is_ip 判断是否是IP ,True代表是，False代表不是
 ```python
 from opssdk.operate import is_ip
-print(is_ip('192.168.1.11')
+print(is_ip('192.168.1.11'))
 ```
+### 系统参数检查和获取
+- check_disk 检查磁盘剩余空间是否大于10G
+```python
+from opssdk.operate.check import check_disk
+print(check_disk('/data1'))
+```
+- check_sys_version 检查系统版本
+```python
+from opssdk.operate.check import check_sys_version
+print(check_sys_version())
+```
+- get_ip_address  根据网卡获取ip地址
+```
+from opssdk.operate.check import get_ip_address
+print(get_ip_address('lo'))
+```
+
 ### mysql 操作
 ```python
 from opssdk.operate.mysql import MysqlBase
@@ -49,6 +66,16 @@ mb.query(sql)
 ### 增删改 返回影响行
 mb.change(sql)
 ```
+### salt api 操作
+```python
+from  opssdk.operate.centralization import SaltApi
+my_salt = SaltApi(url='https://127.0.0.1:8001/', username="saltapi", password="shenshuo")
+### 主机  执行方法   命令
+req = my_salt.run('*', 'cmd.run_all', 'w')
+status, stdout, stderr = req[0], req[1], req[2]
+print(status, stdout, stderr)
+```
+
 
 ### 其他依赖安装
 
