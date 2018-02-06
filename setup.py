@@ -10,7 +10,7 @@ from distutils.core import setup
 setup(
     name='opssdk',
     version='0.0.2',
-    packages=['opssdk', 'opssdk.logs', 'opssdk.operate', 'opssdk.install'],
+    packages=['opssdk', 'opssdk.logs', 'opssdk.operate', 'opssdk.install','opssdk.get_info'],
     url='http://baidu.com',
     license='',
     install_requires=['fire==0.1.2', 'shortuuid==0.5.0', 'pycrypto==2.6.1', 'PyMySQL==0.7.11', 'salt==2017.7.2',

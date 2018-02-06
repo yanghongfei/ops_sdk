@@ -37,7 +37,20 @@ $ pip3 -V
 $ pip3 install -U git+https://github.com/ss1917/ops_sdk.git
 ```
 
-## 组件
+## 结构
+```shell
+.
+├── README.md    项目readme
+└── opssdk
+    ├── logs     日志模块
+    ├── install  安装模块
+    ├── get_info 配置获取
+    └── operate  运维操作
+        ├── check           系统参数检查和获取
+        ├── mysql           mysql 操作
+        └── centralization  集中化管理工具 salt
+```
+
 ## logs
 ```python
 from opssdk.logs import Log
@@ -78,7 +91,8 @@ print(now_time())
 from opssdk.operate import is_ip
 print(is_ip('192.168.1.11'))
 ```
-## 系统参数检查和获取
+## check
+系统参数检查和获取
 - check_disk 检查目录磁盘剩余空间是否大于10G
 ```python
 from opssdk.operate.check import check_disk
@@ -94,7 +108,20 @@ print(check_sys_version())
 from opssdk.operate.check import get_ip_address
 print(get_ip_address('lo'))
 ```
-
+## get_info
+解析配置文件
+- json_to_dict 根据json文件的路径 把内容转化成字典格式
+```python
+from opssdk.get_info import json_to_dict
+print(json_to_dict('/tmp/conf.json'))
+```
+- IniToDict 根据ini文件的路径、节点 把内容转化成字典格式
+```python
+from opssdk.get_info import IniToDict
+itd = IniToDict('/tmp/conf.ini','config') # 实例化
+print(itd.get_option())
+print(itd.get_option('v1'))
+```
 ## mysql 操作
 ```python
 from opssdk.operate.mysql import MysqlBase
