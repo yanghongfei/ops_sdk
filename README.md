@@ -1,5 +1,6 @@
-## 功能
-### logs
+## 版本 依赖
+- python3.6
+## logs
 ```python
 from opssdk.logs import Log
 ### 日志路径
@@ -9,7 +10,7 @@ log_ins = Log('yunwei', log_path)
 ### 写日志 （'debug', 'info', 'warning', 'error', 'critical'）
 log_ins.write_log('info', 'ceshi')
 ```
-### operate
+## operate
 - exec_shell 执行shell命令
 ```python
 from opssdk.operate import exec_shell
@@ -39,8 +40,8 @@ print(now_time())
 from opssdk.operate import is_ip
 print(is_ip('192.168.1.11'))
 ```
-### 系统参数检查和获取
-- check_disk 检查磁盘剩余空间是否大于10G
+## 系统参数检查和获取
+- check_disk 检查目录磁盘剩余空间是否大于10G
 ```python
 from opssdk.operate.check import check_disk
 print(check_disk('/data1'))
@@ -56,7 +57,7 @@ from opssdk.operate.check import get_ip_address
 print(get_ip_address('lo'))
 ```
 
-### mysql 操作
+## mysql 操作
 ```python
 from opssdk.operate.mysql import MysqlBase
 mysql_dict = {"host": "172.16.0.223", "port": 3306, "user": "root", "passwd": "ljXrcyn7", "db": "zhi"}
@@ -66,7 +67,7 @@ mb.query(sql)
 ### 增删改 返回影响行
 mb.change(sql)
 ```
-### salt api 操作
+## salt api 操作
 ```python
 from  opssdk.operate.centralization import SaltApi
 my_salt = SaltApi(url='https://127.0.0.1:8001/', username="saltapi", password="shenshuo")
@@ -76,8 +77,6 @@ status, stdout, stderr = req[0], req[1], req[2]
 print(status, stdout, stderr)
 ```
 
-
-### 其他依赖安装
 
 ```
 pip3 install pycrypto      --index-url http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
