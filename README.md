@@ -48,6 +48,7 @@ $ pip3 install -U git+https://github.com/ss1917/ops_sdk.git
     └── operate  运维操作
         ├── check           系统参数检查和获取
         ├── mysql           mysql 操作
+        ├── mail            发送邮件
         └── centralization  集中化管理工具 salt
 ```
 
@@ -55,7 +56,7 @@ $ pip3 install -U git+https://github.com/ss1917/ops_sdk.git
 ```python
 from opssdk.logs import Log
 ### 日志路径
-log_path = '/log/yunwei/%s.log' % (os.path.basename(__file__))
+log_path = '/log/yunwei/{0}.log'.format(os.path.basename(__file__))
 ### 添加日志标识
 log_ins = Log('yunwei', log_path)
 ### 写日志 （'debug', 'info', 'warning', 'error', 'critical'）
@@ -131,6 +132,24 @@ mb = MysqlBase(**mysql_dict)
 mb.query(sql)
 ### 增删改 返回影响行
 mb.change(sql)
+```
+## mail
+发送邮件
+```python
+from opssdk.operate.mail import Mail
+mailto_list = "191715030@qq.com, shenshuo@shinezone.com, 381759019@qq.com"
+sm = Mail()
+"""
+:param to_list:  收件人以半角逗号分隔 必填
+:param header:   发件名，必填
+:param sub:      标题 必填。
+:param content:  发件内容 必填。
+:param subtype:  发件格式 默认plain，可选 html格式
+:param att:      附件 只支持单附件，选填
+:return:         True or False
+"""
+sm.send_mail(mailto_list, '运维', "标题", "内容")
+sm.send_mail(mailto_list, '运维', "标题", "内容", 'plain', '/tmp/cof.ini')
 ```
 ## salt api 操作
 ```python

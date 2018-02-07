@@ -14,7 +14,7 @@ from email.mime.multipart import MIMEMultipart
 class Mail:
     def __init__(self, mail_host="smtp.163.com", mail_user="xz_ops_mail", mail_pass="shenshuo1",
                  mail_postfix="163.com"):
-        self.mail_host = mail_host  # 使用的邮箱的smtp服务器地址，这里是163的smtp地址
+        self.mail_host = mail_host    # 使用的邮箱的smtp服务器地址，这里是163的smtp地址
         self.__mail_user = mail_user  # 用户名
         self.__mail_pass = mail_pass  # 密码
         self.mail_postfix = mail_postfix  # 邮箱的后缀，网易就是163.com

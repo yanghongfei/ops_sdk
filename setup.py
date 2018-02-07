@@ -9,7 +9,7 @@ from distutils.core import setup
 
 setup(
     name='opssdk',
-    version='0.0.2',
+    version='0.0.3',
     packages=['opssdk', 'opssdk.logs', 'opssdk.operate', 'opssdk.install','opssdk.get_info'],
     url='http://baidu.com',
     license='',
