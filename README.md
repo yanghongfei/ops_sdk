@@ -62,6 +62,7 @@ log_ins = Log('yunwei', log_path)
 ### 写日志 （'debug', 'info', 'warning', 'error', 'critical'）
 log_ins.write_log('info', 'ceshi')
 ```
+
 ## operate
 - exec_shell 执行shell命令
 ```python
@@ -92,12 +93,14 @@ print(now_time())
 from opssdk.operate import is_ip
 print(is_ip('192.168.1.11'))
 ```
+
 ## check
 系统参数检查和获取
 - check_disk 检查目录磁盘剩余空间是否大于10G
+- 参数1 检查的目录 参数2 大于磁盘剩余量
 ```python
 from opssdk.operate.check import check_disk
-print(check_disk('/data1'))
+print(check_disk('/data1', 10))
 ```
 - check_sys_version 检查系统版本
 ```python
@@ -109,6 +112,7 @@ print(check_sys_version())
 from opssdk.operate.check import get_ip_address
 print(get_ip_address('lo'))
 ```
+
 ## get_info
 解析配置文件
 - json_to_dict 根据json文件的路径 把内容转化成字典格式
@@ -123,6 +127,7 @@ itd = IniToDict('/tmp/conf.ini','config') # 实例化
 print(itd.get_option())
 print(itd.get_option('v1'))
 ```
+
 ## mysql 操作
 ```python
 from opssdk.operate.mysql import MysqlBase
@@ -133,6 +138,7 @@ mb.query(sql)
 ### 增删改 返回影响行
 mb.change(sql)
 ```
+
 ## mail
 发送邮件
 ```python
@@ -151,6 +157,10 @@ sm = Mail()
 sm.send_mail(mailto_list, '运维', "标题", "内容")
 sm.send_mail(mailto_list, '运维', "标题", "内容", 'plain', '/tmp/cof.ini')
 ```
+## utils 实用工具
+
+- timeit 装饰器，获取函数执行时长
+
 ## salt api 操作
 ```python
 from  opssdk.operate.centralization import SaltApi

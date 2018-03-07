@@ -12,10 +12,10 @@ import struct
 from opssdk.operate import exec_shell
 
 
-def check_disk(d='/data1'):
+def check_disk(d='/data1', f=10):
     vfs = os.statvfs(d)
     available = vfs.f_bsize * vfs.f_bavail / 1024 / 1024 / 1024
-    if available > 10:
+    if available > f:
         return True
     return False
 
