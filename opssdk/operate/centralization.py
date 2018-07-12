@@ -76,10 +76,16 @@ class SaltApi:
         return result
 
     def run(self, salt_client='*', salt_method='cmd.run_all', salt_params='w', timeout=1800):
+        try:
+            self.salt_command(salt_client, 'test.ping')
+        except Exception as e:
+            return -99, 'test.ping error', str(e)
+
         t = 0
         jid = self.salt_async_command(salt_client, salt_method, salt_params)
         if not jid:
             return -100, '连接失败', '连接失败或主机不存在'
+
         while True:
             time.sleep(5)
             if t == timeout:
