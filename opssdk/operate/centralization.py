@@ -77,7 +77,8 @@ class SaltApi:
 
     def run(self, salt_client='*', salt_method='cmd.run_all', salt_params='w', timeout=1800):
         try:
-            self.salt_command(salt_client, 'test.ping')
+            if not self.salt_command(salt_client, 'test.ping')[salt_client]:
+                return -98, 'test.ping error 98', ''
         except Exception as e:
             return -99, 'test.ping error', str(e)
 
