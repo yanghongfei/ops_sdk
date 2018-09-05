@@ -82,8 +82,8 @@ class Config(dict):
                 const.MQ_PWD: '',
             }
         }
-        self[const.APP_NAME] = ''
-        self[const.LOG_TO_FILE] = False
+        # self[const.APP_NAME] = ''
+        # self[const.LOG_TO_FILE] = False
 
     def has_item(self, item):
         return item in self
