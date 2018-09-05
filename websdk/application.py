@@ -10,7 +10,7 @@ from tornado import httpserver, ioloop
 from tornado import options as tnd_options
 from tornado.options import options, define
 from tornado.web import Application as tornado_app
-from web_logs import ins_log
+from .web_logs import ins_log
 
 from configs import configs
 
