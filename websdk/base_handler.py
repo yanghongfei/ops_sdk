@@ -4,14 +4,14 @@
 import json
 from datetime import timedelta
 import shortuuid
-from cache import get_cache
+from .cache import get_cache
 from tornado.web import RequestHandler, HTTPError
 from tornado.gen import with_timeout, coroutine, TimeoutError
-from tools import Executor
-from db_context import DBContext
-from jwt_token import AuthToken
-from models.mg import Users, OperationRecord
-from my_verify import MyVerify
+from .tools import Executor
+from .db_context import DBContext
+from .jwt_token import AuthToken
+# from models.mg import Users, OperationRecord
+from .my_verify import MyVerify
 
 
 class BaseHandler(RequestHandler):
@@ -82,11 +82,11 @@ class BaseHandler(RequestHandler):
 
     def is_superuser(self):
         user_id = self.get_current_id()
-        with DBContext('readonly') as session:
-            user_info = session.query(Users).filter(Users.user_id == user_id, Users.superuser == '0',
-                                                    Users.status == '0').first()
-        if user_info:
-            return True
+        # with DBContext('readonly') as session:
+        #     user_info = session.query(Users).filter(Users.user_id == user_id, Users.superuser == '0',
+        #                                              Users.status == '0').first()
+        # if user_info:
+        #     return True
         return False
 
     @coroutine
