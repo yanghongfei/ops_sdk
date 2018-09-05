@@ -12,7 +12,7 @@ from tornado.options import options, define
 from tornado.web import Application as tornado_app
 from .web_logs import ins_log
 
-from configs import configs
+from .configs import configs
 
 define("addr", default='0.0.0.0', help="run on the given ip address", type=str)
 define("port", default=8000, help="run on the given port", type=int)
