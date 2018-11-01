@@ -8,7 +8,7 @@ role   : 权限鉴定类
 
 from settings import settings as app_settings
 from models.mg import UserRoles, RoleFunctions, Functions
-from libs.db_context import DBContext
+from .db_context import DBContext
 import redis
 
 

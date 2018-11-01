@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 # -*-coding:utf-8-*-
 
-import json
-from datetime import timedelta
 import shortuuid
 from .cache import get_cache
 from tornado.web import RequestHandler, HTTPError
-from tornado.gen import with_timeout, coroutine, TimeoutError
-from .tools import Executor
-from .db_context import DBContext
 from .jwt_token import AuthToken
-# from models.mg import Users, OperationRecord
-from .my_verify import MyVerify
 
 
 class BaseHandler(RequestHandler):
@@ -36,7 +29,7 @@ class BaseHandler(RequestHandler):
 
         ### 登陆验证
         auth_key = self.get_cookie('auth_key', None)
-        if not auth_key:
+        if not auth_key or not self.get_secure_cookie("user_id") or not self.get_secure_cookie("username") :
             # 没登录，就让跳到登陆页面
             raise HTTPError(401, 'auth failed')
 
@@ -52,24 +45,11 @@ class BaseHandler(RequestHandler):
             else:
                 user_id = str(user_id)
                 self.set_secure_cookie("user_id", user_id)
-                # self.set_cookie('enable_nickname', base64.b64encode(nickname.encode('utf-8')))
                 self.set_secure_cookie("nickname", nickname)
                 self.set_secure_cookie("username", username)
-                my_verify = MyVerify(user_id)
 
-        ### 如果不是超级管理员,开始鉴权
-        if not self.is_superuser():
 
-            # 没权限，就让跳到权限页面 0代表有权限，1代表没权限
-            if my_verify.get_verify(self.request.method, self.request.uri) != 0:
-                '''如果没有权限，就刷新一次权限'''
-                my_verify.write_verify()
 
-            if my_verify.get_verify(self.request.method, self.request.uri) != 0:
-                raise HTTPError(403, 'request forbidden!')
-
-        ### 写入日志
-        ### pass
 
     def get_current_user(self):
         return self.get_secure_cookie("username")
@@ -81,23 +61,7 @@ class BaseHandler(RequestHandler):
         return self.get_secure_cookie("nickname")
 
     def is_superuser(self):
-        user_id = self.get_current_id()
-        # with DBContext('readonly') as session:
-        #     user_info = session.query(Users).filter(Users.user_id == user_id, Users.superuser == '0',
-        #                                              Users.status == '0').first()
-        # if user_info:
-        #     return True
         return False
-
-    @coroutine
-    def async_execute_sync(self, handler, *args, **kwargs):
-        future = Executor().submit(self.execute_sync_function, handler, *args, **kwargs)
-        result = yield with_timeout(timedelta(seconds=5), future, quiet_exceptions=TimeoutError)
-        return self.return_result(result)
-
-    def execute_sync_function(self, handler, *args, **kwargs):
-        result = handler(*args, **kwargs)
-        return result
 
     def write_error(self, status_code, **kwargs):
         if status_code == 404:

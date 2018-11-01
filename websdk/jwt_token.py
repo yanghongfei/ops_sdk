@@ -27,7 +27,8 @@ class AuthToken:
                 'data': {
                     'user_id': kargs.get('user_id',''),
                     'username': kargs.get('username',''),
-                    'nickname': kargs.get('nickname','')
+                    'nickname': kargs.get('nickname',''),
+                    'is_superuser': kargs.get('is_superuser', False)
                 }
             }
             return jwt.encode(
