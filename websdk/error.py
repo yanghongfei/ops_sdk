@@ -42,3 +42,9 @@ class BadRequestError(BizError):
     def __init__(self, *args, **kwargs):
         super(BadRequestError, self).__init__(ErrorCode.bad_request,
                                               *args, **kwargs)
+
+
+class ConfigError(Exception):
+    def __init__(self, config_key, *args, **kwargs):
+        self.config_key = config_key
+        super(ConfigError, self).__init__(*args, **kwargs)

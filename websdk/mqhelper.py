@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # -*-coding:utf-8-*-
-'''
+"""
 Author : ming
 date   : 2017/3/3 下午9:31
-role   : Version Update
-'''
+role   : rabbitMQ 操作类
+"""
 import traceback
 import pika
-from libs.consts import const
-from settings import settings
-from libs.web_logs import ins_log
-from libs.errors.business import ConfigError
+from .consts import const
+from .configs import configs
+from .web_logs import ins_log
+from .error import ConfigError
 
 
 class MessageQueueBase(object):
     def __init__(self, exchange, exchange_type, routing_key='', queue_name='', no_ack=False, mq_key=''):
-        mq_config = settings[const.MQ_CONFIG_ITEM][const.DEFAULT_MQ_KEY]
+        mq_config = configs[const.MQ_CONFIG_ITEM][const.DEFAULT_MQ_KEY]
         if const.MQ_ADDR not in mq_config:
             raise ConfigError(const.MQ_ADDR)
         if const.MQ_PORT not in mq_config:

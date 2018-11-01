@@ -1,10 +1,10 @@
 # -*-coding:utf-8-*-
 """
-Author : SS
+Author : shenshuo
 date   : 2017年10月17日17:23:19
 role   : 数据库连接
 """
-import sys
+
 import pymysql
 from urllib.parse import quote_plus
 from sqlalchemy import create_engine

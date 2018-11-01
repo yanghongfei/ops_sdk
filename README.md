@@ -50,10 +50,28 @@ $ pip3 install -U git+https://github.com/ss1917/ops_sdk.git
         ├── mysql           mysql 操作
         ├── mail            发送邮件
         └── centralization  集中化管理工具 salt
+    └── websdk      web开发使用
+    ├── application.py          tornado application
+    ├── base_handler.py         tornado  基类
+    ├── cache.py                处理redis缓存
+    ├── configs.py              配置文件管理
+    ├── consts.py               常量
+    ├── db_context.py           MySQL 处理类
+    ├── error.py                异常
+    ├── fetch_coroutine.py      
+    ├── __init__.py
+    ├── jwt_token.py            jwt
+    ├── mqhelper.py             MQ 处理类
+    ├── program.py
+    ├── salt_api.py             salt 处理类 可以移到工具类
+    ├── sms.py                  发送短信     可以移到工具类
+    ├── tools.py                工具类
+    └── web_logs.py             日志处理
 ```
 
 ## logs
 ```python
+import os
 from opssdk.logs import Log
 ### 日志路径
 log_path = '/log/yunwei/{0}.log'.format(os.path.basename(__file__))
@@ -68,8 +86,8 @@ log_ins.write_log('info', 'ceshi')
 ```python
 from opssdk.operate import exec_shell
 recode,stdout = exec_shell('ls')
-recode 为0 则代表成功，stdout 内容 为列表格式 半月逗号分隔
-recode 非0 则代表失败，stdout 内容 字符串格式
+# recode 为0 则代表成功，stdout 内容 为列表格式 半月逗号分隔
+# recode 非0 则代表失败，stdout 内容 字符串格式
 ```
 - exclusiveLock  脚本锁,防止脚本重复执行
 ```python

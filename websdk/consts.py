@@ -3,7 +3,7 @@
 '''
 Author : ming
 date   : 2017/4/11 下午1:54
-role   : Version Update
+role   : 常量管理
 '''
 
 from enum import IntEnum as Enum
