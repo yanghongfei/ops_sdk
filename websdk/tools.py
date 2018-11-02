@@ -44,6 +44,19 @@ def check_password(data):
     return True if re.search("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$", data) and len(data) >= 8 else False
 
 
+def is_mail(text, login_mail=None):
+    if login_mail:
+        if re.match(r'[0-9a-zA-Z_]{0,19}@%s' % login_mail, text):
+            return True
+        else:
+            return False
+
+    if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', text):
+        return True
+    else:
+        return False
+
+
 class Executor(ThreadPoolExecutor):
     """ 线程执行类 """
     _instance = None
