@@ -15,8 +15,11 @@ from .configs import configs
 engines = {}
 
 
-def init_engine():
-    databases = configs[const.DB_CONFIG_ITEM]
+def init_engine(**settings):
+    if settings:
+        databases = settings[const.DB_CONFIG_ITEM]
+    else:
+        databases = configs[const.DB_CONFIG_ITEM]
     for dbkey, db_conf in databases.items():
         dbuser = db_conf[const.DBUSER_KEY]
         dbpwd = db_conf[const.DBPWD_KEY]
@@ -44,14 +47,14 @@ def get_db_url(dbkey):
 
 
 class DBContext(object):
-    def __init__(self, rw='r', db_key=None, need_commit=False):
+    def __init__(self, rw='r', db_key=None, need_commit=False, **settings):
         self.__db_key = db_key
         if not self.__db_key:
             if rw == 'w':
                 self.__db_key = const.DEFAULT_DB_KEY
             elif rw == 'r':
                 self.__db_key = const.READONLY_DB_KEY
-        engine = self.__get_db_engine(self.__db_key)
+        engine = self.__get_db_engine(self.__db_key, **settings)
         self.__engine = engine
         self.need_commit = need_commit
 
@@ -60,9 +63,12 @@ class DBContext(object):
         return self.__db_key
 
     @staticmethod
-    def __get_db_engine(db_key):
+    def __get_db_engine(db_key, **settings):
+        print('len(engines)', len(engines))
+        print(db_key)
         if len(engines) == 0:
-            init_engine()
+            init_engine(**settings)
+        print(engines[db_key])
         return engines[db_key]
 
     @property
