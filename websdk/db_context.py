@@ -64,11 +64,8 @@ class DBContext(object):
 
     @staticmethod
     def __get_db_engine(db_key, **settings):
-        print('len(engines)', len(engines))
-        print(db_key)
         if len(engines) == 0:
             init_engine(**settings)
-        print(engines[db_key])
         return engines[db_key]
 
     @property
